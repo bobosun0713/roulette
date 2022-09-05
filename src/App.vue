@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import RouletteWrap from '@/components/RouletteWrap.vue';
+</script>
 
 <template>
-  <h1>Hello World</h1>
+  <RouletteWrap></RouletteWrap>
 </template>
-
-<style scoped></style>
