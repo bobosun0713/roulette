@@ -48,7 +48,7 @@ const transformAwardText = () => {
 
 <template>
   <div
-    class="relative lg:w-[500px] lg:h-[500px] md:w-[500px] md:h-[500px] sm:w-[425px] sm:h-[425px] xs:w-[341px] xs:h-[341px] xxxs:w-[290px] xxxs:h-[290px] transition-transform duration-[5000ms] ease-[cubic-bezier(0.25, 0, 0, 1)]"
+    class="relative lg:w-[500px] lg:h-[500px] md:w-[500px] md:h-[500px] sm:w-[425px] sm:h-[425px] xs:w-[341px] xs:h-[341px] xxxs:w-[290px] xxxs:h-[290px] transition-transform duration-[6000ms] ease-[cubic-bezier(0.25, 0, 0,1)]"
   >
     <div
       v-for="(item, idx) in data"
