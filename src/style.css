@@ -11,6 +11,8 @@
   align-items: center;
   position: relative;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: sans-serif;
 }
 
 #app::before {
