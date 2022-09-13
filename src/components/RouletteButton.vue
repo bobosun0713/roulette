@@ -1,9 +1,9 @@
 <script setup>
-const props = defineProps({ isSearch: { type: Boolean, default: false } });
+const props = defineProps({ isStart: { type: Boolean, default: false } });
 const emit = defineEmits(['onStartHandler']);
 
 const onStartHandler = () => {
-  if (props.isSearch) return;
+  if (props.isStart) return;
   emit('onStartHandler');
 };
 </script>
