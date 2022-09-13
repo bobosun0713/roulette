@@ -20,9 +20,7 @@ const props = defineProps({
           v-show="props.showModal"
           class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] overflow-hidden w-[800px] h-[60vh] rounded-[10px] bg-[#1D2A33]"
         >
-          <slot name="header">
-            <div class="text-[1.25rem] text-center text-[#fff] tracking-[1px] p-[4px_0] bg-[#4e4376]">Settings</div>
-          </slot>
+          <slot name="header"> </slot>
           <slot name="body"></slot>
         </div>
       </transition>
