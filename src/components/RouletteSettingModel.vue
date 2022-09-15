@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject } from 'vue';
+import { reactive, computed, inject } from 'vue';
 import BaseModel from '@/components/BaseModel.vue';
 
 const props = defineProps({
@@ -12,15 +12,17 @@ const props = defineProps({
     default: () => []
   }
 });
+
 const emit = defineEmits(['update:data']);
 const { start } = inject('rouletteStore');
+const defaultBackgroundColors = reactive(['#517fa4', '#2a5298', '#04befe', '#5239ac']);
 
-const canDelete = computed(() => props.data.length <= 3);
+const canDelete = computed(() => props.data.length <= 2);
 const addHandler = () => {
   const addData = {
     id: props.data.length + 1,
     price: null,
-    background: '#75485e',
+    background: defaultBackgroundColors[(props.data.length + 1) % defaultBackgroundColors.length],
     color: '#ffffff'
   };
   const updateOrigin = [...props.data].concat(addData);
@@ -39,15 +41,14 @@ const deleteHandler = idx => {
       <div class="h-[100%] flex flex-col">
         <div class="text-[1.25rem] text-center text-[#fff] tracking-[1px] p-[4px_0] bg-[#4e4376]">Settings</div>
         <div class="grow h-[calc(100%-100px)] overflow-y-scroll scrollbar">
-          <ul class="w-[100%] flex flex-col justify-center p-[10px]">
+          <transition-group name="list" tag="ul" mode="out-in" class="w-[100%] flex flex-col justify-center p-[10px] overflow-hidden">
             <li
               v-for="(item, idx) in props.data"
-              :key="idx"
+              :key="item.id"
               class="flex md:flex-row xxxs:flex-col flex-wrap md:items-center justify-between mb-[10px] border-l-[4px] border-[#4e4376] bg-[#0e171d]"
             >
               <div class="flex items-center p-[8px_16px] text-[#ebe5e5]">
                 <p class="md:w-[50px] xxxs:w-[120px] mr-[10px]">No. {{ idx + 1 }}</p>
-
                 <input
                   v-model.trim="item.price"
                   class="md:w-auto xxxs:w-[calc(100%-120px)] border border-[#5f5244] bg-transparent p-[4px_8px] text-right outline-none"
@@ -76,17 +77,19 @@ const deleteHandler = idx => {
                   />
                 </div>
               </div>
-              <div class="flex items-center md:self-auto xxxs:self-center p-[8px_16px] text-[#e24242] font-bold" @click="deleteHandler(idx)">
+
+              <div class="flex items-center md:self-auto xxxs:self-center p-[8px_16px] text-[#e24242] font-bold">
                 <button
                   class="hover:text-[#4e4376] cursor-pointer"
-                  :class="{ 'invisible ': canDelete, ' cursor-not-allowed': start }"
-                  :disabled="start"
+                  :class="{ ' cursor-not-allowed': canDelete }"
+                  :disabled="canDelete"
+                  @click="deleteHandler(idx)"
                 >
                   DELETE
                 </button>
               </div>
             </li>
-          </ul>
+          </transition-group>
         </div>
         <button
           class="block w-[150px] h-[50px] rounded-[50px] m-[16px_auto] font-bold text-[1.25rem] text-[#fff] bg-[#4e4376]"
@@ -106,9 +109,19 @@ const deleteHandler = idx => {
   width: 8px;
   height: 50px;
 }
-
 .scrollbar::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  transform: translateX(50px);
+  opacity: 0;
 }
 </style>
