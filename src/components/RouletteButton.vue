@@ -10,7 +10,7 @@ const onStartHandler = () => {
 
 <template>
   <div
-    class="absolute z-[50] w-[100px] h-[130px] md:h-[130px] xxxs:h-[80px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 cursor-pointer bg-[url('/src/assets/image/pointer.svg')] bg-no-repeat bg-center"
+    class="absolute z-[50] w-[100px] h-[130px] md:h-[130px] xxxs:h-[80px] top-[47%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 cursor-pointer bg-[url('/src/assets/image/pointer.svg')] bg-no-repeat bg-center"
     @click="onStartHandler"
   >
     <div
