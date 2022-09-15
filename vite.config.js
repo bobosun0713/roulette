@@ -5,6 +5,7 @@ import eslintPlugin from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/SideProject-Spin_the_Wheel/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
