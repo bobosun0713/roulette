@@ -32,7 +32,7 @@ const randomNumbers = (min, max) => Math.floor(Math.random() * (max - min + 1) +
 
 <template>
   <div
-    class="relative md:w-[605px] md:h-[605px] sm:w-[515px] sm:h-[515px] xs:w-[415px] xs:h-[415px] xxs:w-[355px] xxs:h-[355px] flex items-center justify-center overflow-hidden bg-[url('/src/assets/image/roulette.gif')] bg-cover"
+    class="relative md:w-[605px] md:h-[605px] sm:w-[515px] sm:h-[515px] xs:w-[415px] xs:h-[415px] xxs:w-[350px] xxs:h-[350px] flex items-center justify-center overflow-hidden bg-[url('/src/assets/image/roulette.gif')] bg-cover"
   >
     <RouletteButton :is-start="start" @on-start-handler="startHandler"></RouletteButton>
 

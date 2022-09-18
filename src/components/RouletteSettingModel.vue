@@ -61,7 +61,7 @@ const deleteHandler = idx => {
                 <div class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]">
                   <input
                     v-model.trim="item.background"
-                    class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxx:left-[0] h-[80px] md:w-[80px] xxxs:w-[100%]"
+                    class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxxs:left-[-5px] h-[80px] md:w-[80px] xxxs:w-[110%]"
                     type="color"
                   />
                 </div>
@@ -72,7 +72,7 @@ const deleteHandler = idx => {
                 <div class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]">
                   <input
                     v-model.trim="item.color"
-                    class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxx:left-[0] h-[80px] md:w-[80px] xxxs:w-[100%]"
+                    class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxxs:left-[-5px] h-[80px] md:w-[80px] xxxs:w-[110%]"
                     type="color"
                   />
                 </div>
