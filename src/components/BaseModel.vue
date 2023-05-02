@@ -1,5 +1,4 @@
-<script setup>
-import {} from 'vue';
+<script setup lang="ts">
 const emit = defineEmits(['on-close']);
 const props = defineProps({
   showModal: {

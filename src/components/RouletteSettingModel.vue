@@ -1,37 +1,43 @@
-<script setup>
-import { reactive, computed, inject } from 'vue';
-import BaseModel from '@/components/BaseModel.vue';
+<script setup lang="ts">
+import { reactive, computed, inject } from "vue";
+import { RouletteStoreKey } from "@/symbols";
+import BaseModel from "@/components/BaseModel.vue";
 
-const props = defineProps({
-  showModel: {
-    type: Boolean,
-    default: false
-  },
-  data: {
-    type: Array,
-    default: () => []
-  }
+interface RouletteDataInfo {
+  id: string;
+  price: string;
+  deg?: number;
+  background: string;
+  color: string;
+}
+const props = withDefaults(defineProps<{ showModel: boolean; data: Array<RouletteDataInfo> }>(), {
+  showModel: false,
+  data: () => []
 });
 
-const emit = defineEmits(['update:data']);
-const { start } = inject('rouletteStore');
-const defaultBackgroundColors = reactive(['#517fa4', '#2a5298', '#04befe', '#5239ac']);
+
+const emit = defineEmits(["update:data"]);
+const { start } = inject(RouletteStoreKey)!;
+
+const defaultBackgroundColors = reactive<string[]>(["#517fa4", "#2a5298", "#04befe", "#5239ac"]);
 
 const canDelete = computed(() => props.data.length <= 2);
+
 const addHandler = () => {
-  const addData = {
-    id: props.data.length + 1,
-    price: null,
+  const addData: RouletteDataInfo = {
+    id: `${props.data.length + 1}`,
+    price: '0',
     background: defaultBackgroundColors[(props.data.length + 1) % defaultBackgroundColors.length],
-    color: '#ffffff'
+    color: "#ffffff"
   };
   const updateOrigin = [...props.data].concat(addData);
-  emit('update:data', updateOrigin);
+  emit("update:data", updateOrigin);
 };
-const deleteHandler = idx => {
+
+const deleteHandler = (idx: number) => {
   const deleteOrigin = [...props.data];
   deleteOrigin.splice(idx, 1);
-  emit('update:data', deleteOrigin);
+  emit("update:data", deleteOrigin);
 };
 </script>
 
@@ -41,7 +47,12 @@ const deleteHandler = idx => {
       <div class="h-[100%] flex flex-col">
         <div class="text-[1.25rem] text-center text-[#fff] tracking-[1px] p-[4px_0] bg-[#4e4376]">Settings</div>
         <div class="grow h-[calc(100%-100px)] overflow-y-scroll scrollbar">
-          <transition-group name="list" tag="ul" mode="out-in" class="w-[100%] flex flex-col justify-center p-[10px] overflow-hidden">
+          <transition-group
+            name="list"
+            tag="ul"
+            mode="out-in"
+            class="w-[100%] flex flex-col justify-center p-[10px] overflow-hidden"
+          >
             <li
               v-for="(item, idx) in props.data"
               :key="item.id"
@@ -58,7 +69,9 @@ const deleteHandler = idx => {
 
               <div class="flex items-center p-[8px_16px] text-[#fff]">
                 <p class="md:w-auto xxxs:w-[120px] mr-[10px]">Background</p>
-                <div class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]">
+                <div
+                  class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]"
+                >
                   <input
                     v-model.trim="item.background"
                     class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxxs:left-[-5px] h-[80px] md:w-[80px] xxxs:w-[110%]"
@@ -69,7 +82,9 @@ const deleteHandler = idx => {
 
               <div class="flex items-center p-[8px_16px] text-[#fff]">
                 <p class="md:w-auto xxxs:w-[120px] mr-[10px]">Color</p>
-                <div class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]">
+                <div
+                  class="relative overflow-hidden md:w-[60px] xxxs:w-[calc(100%-120px)] h-[30px] border border-[#5f5244]"
+                >
                   <input
                     v-model.trim="item.color"
                     class="bg-transparent text-right outline-none absolute top-[-10px] md:left-[-10px] xxxs:left-[-5px] h-[80px] md:w-[80px] xxxs:w-[110%]"

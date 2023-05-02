@@ -1,9 +1,12 @@
-<script setup>
+<script setup lang="ts">
+import { RouletteStoreKey } from '@/symbols';
 import { ref, onMounted, watch, provide } from 'vue';
 import RouletteBar from '@/components/RouletteBar.vue';
 import RouletteWrap from '@/components/RouletteWrap.vue';
 import RouletteSettingModal from '@/components/RouletteSettingModel.vue';
-import rouletteComposition from '@/composition/rouletteData.js';
+import RouletteStore from '@/composition/rouletteStore';
+
+provide(RouletteStoreKey, RouletteStore);
 
 const isOpenSetting = ref(false);
 const rouletteData = ref([
@@ -30,7 +33,6 @@ const rouletteData = ref([
   }
 ]);
 
-provide('rouletteStore', rouletteComposition);
 
 watch(
   () => rouletteData.value,
@@ -47,7 +49,7 @@ const transformRouletteDeg = () => {
     item.deg = (360 / rouletteData.value.length) * (rouletteData.value.length - idx);
   });
 };
-const toggleModel = val => (isOpenSetting.value = val);
+const toggleModel = (val:boolean) => (isOpenSetting.value = val);
 </script>
 
 <template>

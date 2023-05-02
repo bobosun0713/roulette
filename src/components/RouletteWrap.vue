@@ -1,20 +1,23 @@
-<script setup>
-import { ref, onMounted, inject } from 'vue';
-import RouletteContent from '@/components/RouletteContent.vue';
-import RouletteButton from '@/components/RouletteButton.vue';
+<script setup lang="ts">
+import { ref, inject } from "vue";
+import { RouletteStoreKey } from "@/symbols";
+import RouletteContent from "@/components/RouletteContent.vue";
+import RouletteButton from "@/components/RouletteButton.vue";
 
-const props = defineProps({
-  data: {
-    type: Array,
-    default: () => []
-  }
+interface RouletteDataInfo {
+  id: string;
+  price: string;
+  deg: number;
+  background: string;
+  color: string;
+}
+const props = withDefaults(defineProps<{ data: Array<RouletteDataInfo> }>(), {
+  data: () => []
 });
-const wrapRouletteContentRef = ref(null);
-const { degree, start, updateStartState, updateDegree } = inject('rouletteStore');
 
-onMounted(() => {
-  transitionEvent();
-});
+const { degree, start, updateStartState, updateDegree } = inject(RouletteStoreKey)!;
+const wrapRouletteContentRef = ref<HTMLElement | null>(null);
+
 
 const startHandler = () => {
   const idx = props.data.length - 1;
@@ -22,12 +25,10 @@ const startHandler = () => {
   updateStartState();
   updateDegree(2880 + deg - (degree.value % 360));
 };
-const transitionEvent = () => {
-  wrapRouletteContentRef.value.RouletteContentRef.addEventListener('transitionend', () => {
-    updateStartState();
-  });
-};
-const randomNumbers = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+
+
+const randomNumbers = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 </script>
 
 <template>
@@ -36,6 +37,11 @@ const randomNumbers = (min, max) => Math.floor(Math.random() * (max - min + 1) +
   >
     <RouletteButton :is-start="start" @on-start-handler="startHandler"></RouletteButton>
 
-    <RouletteContent ref="wrapRouletteContentRef" :data="data" :style="{ transform: `rotate(${degree}deg)` }"></RouletteContent>
+    <RouletteContent
+      ref="wrapRouletteContentRef"
+      :data="data"
+      :style="{ transform: `rotate(${degree}deg)` }"
+      @transition-end="updateStartState"
+    ></RouletteContent>
   </div>
 </template>

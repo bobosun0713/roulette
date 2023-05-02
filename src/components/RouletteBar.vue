@@ -1,5 +1,4 @@
-<script setup>
-import {} from 'vue';
+<script setup lang="ts">
 defineProps({
   modelValue: {
     type: Boolean,

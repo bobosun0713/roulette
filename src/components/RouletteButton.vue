@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({ isStart: { type: Boolean, default: false } });
 const emit = defineEmits(['onStartHandler']);
 
