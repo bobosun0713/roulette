@@ -5,11 +5,12 @@ set -e
 
 # build
 pnpm build
-
-# navigate into the build output directory
 cd dist
 
-git init
+if [ ! -d ".git" ]; then
+  git init
+fi
+
 git add -A
 git commit -m 'deploy'
 
