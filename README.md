@@ -1,7 +1,28 @@
-# Vue 3 + Vite
+# Roulette
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+  <a target="_blank" href="http://nodejs.org/download/" title="Node version">
+      <img src="https://img.shields.io/badge/node-%3E%3D%2016.0.0-%23407fbc">
+  </a>
+   <a target="_blank" href="https://vuejs.org/" title="vue">
+      <img src="https://img.shields.io/badge/vue-v3.4.0%2B-%23407fbc">
+  </a>
+   <a target="_blank" href="https://vuejs.org/" title="vue">
+      <img src="https://img.shields.io/badge/tailwindcsss-v3%2B-%23407fbc">
+  </a>
 
-## Recommended IDE Setup
+<br>
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+A simple `Roulette` game
+
+<a href="https://github.com/bobosun0713/roulette">
+  <img src="https://raw.githubusercontent.com/bobosun0713/roulette/master/public/sample.png" alt="Roulette" width="500">
+</a>
+
+## Features
+
+1. Add, modify, and delete options
+2. Customize the background and color of the text
+
+## Contact
+
+If you have any suggestions or issues with the game, you can directly contact me through `e-mail`. I would greatly appreciate it.
