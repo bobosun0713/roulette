@@ -17,6 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "sass": "^1.83.0",
     "vue": "^3.4.29"
   },
   "devDependencies": {
