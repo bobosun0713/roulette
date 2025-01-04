@@ -1,59 +1,52 @@
 <script setup lang="ts">
-import { RouletteStoreKey } from '@/symbols';
-import { ref, onMounted, watch, provide } from 'vue';
-import RouletteBar from '@/components/RouletteBar.vue';
-import RouletteWrap from '@/components/RouletteWrap.vue';
-import RouletteSettingModal from '@/components/RouletteSettingModel.vue';
-import RouletteStore from '@/composition/rouletteStore';
+import { onMounted, ref, watch } from "vue";
 
-provide(RouletteStoreKey, RouletteStore);
+import RouletteBar from "@/components/RouletteBar.vue";
+import RouletteSettingModal from "@/components/RouletteSettingModel.vue";
+import RouletteWrap from "@/components/RouletteWrap.vue";
 
 const isOpenSetting = ref(false);
-const rouletteData = ref([
+const rouletteItems = ref([
   {
-    id: '1',
-    price: '200',
+    id: "1",
+    price: "200",
     deg: 0,
-    background: '#517fa4',
-    color: '#ffffff'
+    background: "#517fa4",
+    color: "#ffffff"
   },
   {
-    id: '2',
-    price: '250',
+    id: "2",
+    price: "250",
     deg: 0,
-    background: '#2a5298',
-    color: '#ffffff'
+    background: "#2a5298",
+    color: "#ffffff"
   },
   {
-    id: '3',
-    price: '300',
+    id: "3",
+    price: "300",
     deg: 0,
-    background: '#04befe',
-    color: '#ffffff'
+    background: "#04befe",
+    color: "#ffffff"
   }
 ]);
 
-
-watch(
-  () => rouletteData.value,
-  () => {
-    transformRouletteDeg();
-  }
-);
-onMounted(() => {
-  transformRouletteDeg();
-});
-
-const transformRouletteDeg = () => {
-  rouletteData.value.forEach((item, idx) => {
-    item.deg = (360 / rouletteData.value.length) * (rouletteData.value.length - idx);
+const calcRotateDeg = (): void => {
+  rouletteItems.value.forEach((item, idx) => {
+    item.deg = (360 / rouletteItems.value.length) * (rouletteItems.value.length - idx);
   });
 };
-const toggleModel = (val:boolean) => (isOpenSetting.value = val);
+
+watch(rouletteItems, () => {
+  calcRotateDeg();
+});
+
+onMounted(() => {
+  calcRotateDeg();
+});
 </script>
 
 <template>
   <RouletteBar v-model="isOpenSetting"></RouletteBar>
-  <RouletteWrap :data="rouletteData"></RouletteWrap>
-  <RouletteSettingModal v-model:data="rouletteData" :showModel="isOpenSetting" @on-close="toggleModel"></RouletteSettingModal>
+  <RouletteWrap :items="rouletteItems"></RouletteWrap>
+  <RouletteSettingModal v-model="isOpenSetting" v-model:items="rouletteItems"></RouletteSettingModal>
 </template>

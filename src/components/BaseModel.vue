@@ -1,33 +1,76 @@
 <script setup lang="ts">
-const emit = defineEmits(['on-close']);
-const props = defineProps({
-  showModal: {
-    type: Boolean,
-    default: false
-  }
-});
+const modelValue = defineModel<boolean>({ default: false });
 </script>
 
 <template>
-  <transition name="overlay">
-    <div v-show="props.showModal" class="fixed w-[100vw] h-[100vh] z-[50]">
-      <transition name="overlay">
-        <div v-show="props.showModal" class="absolute z-[-1] w-[100%] h-[100%] bg-[#131e2698]" @click="emit('on-close', false)"></div>
-      </transition>
-      <transition name="model">
-        <div
-          v-show="props.showModal"
-          class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] overflow-hidden md:w-[800px] xxxs:w-[100%] h-[60vh] rounded-[10px] bg-[#1D2A33]"
-        >
-          <slot name="header"> </slot>
-          <slot name="body"></slot>
+  <Transition name="overlay">
+    <div v-show="modelValue" class="base-modal">
+      <Transition name="overlay">
+        <div v-show="modelValue" class="base-modal__overlay" @click="modelValue = false"></div>
+      </Transition>
+
+      <Transition name="model">
+        <div v-show="modelValue" class="base-modal__content">
+          <div v-if="$slots.header" class="base-modal__header">
+            <slot name="header"></slot>
+          </div>
+
+          <div class="base-modal__body">
+            <slot name="body"></slot>
+          </div>
+
+          <div v-if="$slots.footer" class="base-modal__footer">
+            <slot name="footer"></slot>
+          </div>
         </div>
-      </transition>
+      </Transition>
     </div>
-  </transition>
+  </Transition>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.base-modal {
+  position: fixed;
+  z-index: 50;
+  height: 100vh;
+  width: 100vw;
+  color: $light;
+  letter-spacing: 1px;
+
+  &__overlay {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    background: $dark;
+    opacity: 0.4;
+  }
+
+  &__content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 60vh;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border-radius: 10px;
+    background: #1d2a33;
+    width: 800px;
+
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(lg) {
+      width: 100%;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
 .model-enter-from,
 .model-leave-active {
   transition: all 1s ease;

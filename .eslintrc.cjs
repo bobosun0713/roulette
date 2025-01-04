@@ -34,6 +34,8 @@ module.exports = {
     "vue/require-prop-types": "error",
     "vue/attributes-order": "error",
 
+    "vuejs-accessibility/click-events-have-key-events": "off",
+
     "no-console": "off",
     "no-debugger": "off",
     "no-void": ["error", { allowAsStatement: true }],
