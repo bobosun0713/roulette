@@ -36,9 +36,15 @@ const calcRotateDeg = (): void => {
   });
 };
 
-watch(rouletteItems, () => {
-  calcRotateDeg();
-});
+watch(
+  rouletteItems,
+  () => {
+    calcRotateDeg();
+  },
+  {
+    deep: true
+  }
+);
 
 onMounted(() => {
   calcRotateDeg();
